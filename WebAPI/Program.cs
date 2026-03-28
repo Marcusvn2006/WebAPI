@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using Scalar.AspNetCore;
 using WebAPI.Data;
+using WebAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,12 @@ builder.Services.AddIdentityApiEndpoints<IdentityUser>()
 // 5. Configurar a autenticação e autorização (opcional, mas recomendado para APIs seguras)
 builder.Services.AddAuthentication();
 builder.Services.AddAuthorization();
+
+// 6. Configurar o serviço de email (opcional, mas recomendado para funcionalidades de notificação por email)
+
+builder.Services.AddScoped<EmailService>(); 
+// Adiciona o serviço de email para injeção de dependência, permitindo que ele seja utilizado em controladores ou outros serviços da API para enviar emails de forma fácil e integrada com as configurações definidas no appsettings.json.
+
 
 var app = builder.Build();
 
